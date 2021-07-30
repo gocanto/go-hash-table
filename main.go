@@ -5,7 +5,7 @@ import "fmt"
 const Size = 7
 
 type Node struct {
-	key string
+	key  string
 	next *Node
 }
 
@@ -21,14 +21,14 @@ func Init() *HashTable {
 	table := &HashTable{}
 	//fmt.Println(table.array)
 
-	for i:= range table.array {
+	for i := range table.array {
 		table.array[i] = &Bucket{}
 	}
 
 	return table
 }
 
-func (bucket *Bucket) Insert(seed string)  {
+func (bucket *Bucket) Insert(seed string) {
 	//target := bucket.Find(seed)
 	node := &Node{key: seed}
 
@@ -40,7 +40,7 @@ func (bucket *Bucket) Insert(seed string)  {
 	bucket.head = node
 }
 
-func (bucket *Bucket) Delete(seed string)  {
+func (bucket *Bucket) Delete(seed string) {
 	if bucket.head.key == seed {
 		bucket.head = bucket.head.next
 
@@ -58,10 +58,10 @@ func (bucket *Bucket) Delete(seed string)  {
 	}
 }
 
-func (bucket Bucket) Find(seed string) Node  {
+func (bucket Bucket) Find(seed string) Node {
 	node := bucket.head
 
-	for node != nil{
+	for node != nil {
 		if node.key == seed {
 			return *node
 		}
@@ -72,16 +72,16 @@ func (bucket Bucket) Find(seed string) Node  {
 	return Node{}
 }
 
-func (bucket Bucket) Has(seed string) bool  {
+func (bucket Bucket) Has(seed string) bool {
 	node := bucket.Find(seed)
 
 	return node.key != ""
 }
 
-func (bucket Bucket) Print()  {
+func (bucket Bucket) Print() {
 	//head := bucket.head
 
-	for  e := bucket.head; e != nil; e = e.next {
+	for e := bucket.head; e != nil; e = e.next {
 		fmt.Println(e.key)
 	}
 }
@@ -91,7 +91,7 @@ func (current *HashTable) Add(seed string) {
 	current.array[index].Insert(seed)
 }
 
-func main () {
+func main() {
 	//table := Init()
 	bucket := Bucket{}
 	bucket.Insert("Li")
