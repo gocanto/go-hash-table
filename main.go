@@ -1,78 +1,40 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
 	"hash_table/collection"
+	"hash_table/support"
 	"os"
-	"strings"
+	"os/exec"
+	"runtime"
 )
 
 func main() {
+	clear()
+
 	table := collection.Init()
-
-	menu(table)
+	support.Menu(table)
 }
 
-func menu(items *collection.HashTable) {
-	reader := bufio.NewReader(os.Stdin)
+func clear() {
+	platform := runtime.GOOS
 
-	fmt.Println("                                   ")
-	fmt.Println("+ ------------------------------- +")
-	fmt.Println("|        Chose option             |")
-	fmt.Println("+ ------------------------------- +")
-	fmt.Println("                                   ")
+	if platform == "linux" {
+		cmd := exec.Command("clear")
+		cmd.Stdout = os.Stdout
+		err := cmd.Run()
 
-	opt, _ := getInput("a - Add Name, d - Delete Name, s - Search, p - Print: ", reader)
-
-	switch opt {
-	case "a":
-		add(items, reader)
-		menu(items)
-	case "d":
-		remove(items, reader)
-		menu(items)
-	case "s":
-		search(items, reader)
-		menu(items)
-	case "p":
-		items.Print()
-		menu(items)
-	default:
-		fmt.Println("Invalid option ...")
-		menu(items)
-	}
-}
-
-func add(items *collection.HashTable, reader *bufio.Reader) {
-	name, _ := getInput("Name: ", reader)
-
-	items.Add(name)
-}
-
-func remove(items *collection.HashTable, reader *bufio.Reader) {
-	name, _ := getInput("Name: ", reader)
-
-	items.Delete(name)
-}
-
-func search(items *collection.HashTable, reader *bufio.Reader) {
-	name, _ := getInput("Name: ", reader)
-
-	node := items.Find(name)
-
-	if node.Value != "" {
-		fmt.Println("The found name is: ", node.Value)
-
-		return
+		if err != nil {
+			return
+		}
 	}
 
-	fmt.Println("The given name was not found...")
-}
+	if platform == "windows" {
+		cmd := exec.Command("cmd", "/c", "cls")
+		cmd.Stdout = os.Stdout
+		err := cmd.Run()
 
-func getInput(prompt string, reader *bufio.Reader) (string, error) {
-	fmt.Print(prompt)
-	input, err := reader.ReadString('\n')
-
-	return strings.TrimSpace(input), err
+		if err != nil {
+			return
+		}
+	}
 }
