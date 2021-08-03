@@ -1,3 +1,3 @@
-module github.com/golang-room/hash-table
+module hash_table
 
 go 1.16

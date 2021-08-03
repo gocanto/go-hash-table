@@ -1,6 +1,6 @@
 package collection
 
-import "github.com/golang-room/hash-table/type"
+import "hash_table/type"
 
 const Size = 10
 

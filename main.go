@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/golang-room/hash-table/collection"
+	"hash_table/collection"
 )
 
 func main() {
