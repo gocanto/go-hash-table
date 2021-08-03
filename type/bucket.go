@@ -6,15 +6,15 @@ type Bucket struct {
 	Head *Node
 }
 
-func (bucket *Bucket) Insert(seed string) {
-	node := &Node{Value: seed}
+func (bucket *Bucket) Insert(value string) {
+	node := &Node{Value: value}
 
 	node.Next = bucket.Head
 	bucket.Head = node
 }
 
-func (bucket *Bucket) Delete(seed string) {
-	if bucket.Head.Value == seed {
+func (bucket *Bucket) Delete(value string) {
+	if bucket.Head.Value == value {
 		bucket.Head = bucket.Head.Next
 
 		return
@@ -23,7 +23,7 @@ func (bucket *Bucket) Delete(seed string) {
 	previous := bucket.Head
 
 	for previous.Next != nil {
-		if previous.Next.Value == seed {
+		if previous.Next.Value == value {
 			previous.Next = previous.Next.Next
 		}
 
@@ -31,11 +31,11 @@ func (bucket *Bucket) Delete(seed string) {
 	}
 }
 
-func (bucket Bucket) Find(seed string) Node {
+func (bucket Bucket) Find(value string) Node {
 	node := bucket.Head
 
 	for node != nil {
-		if node.Value == seed {
+		if node.Value == value {
 			return *node
 		}
 
@@ -45,8 +45,8 @@ func (bucket Bucket) Find(seed string) Node {
 	return Node{}
 }
 
-func (bucket Bucket) Has(seed string) bool {
-	node := bucket.Find(seed)
+func (bucket Bucket) Has(value string) bool {
+	node := bucket.Find(value)
 
 	return node.Value != ""
 }

@@ -8,19 +8,19 @@ type HashTable struct {
 	items [Size]*_type.Bucket
 }
 
-func (current *HashTable) Add(seed string) {
-	index := hash(seed)
-	current.items[index].Insert(seed)
+func (current *HashTable) Add(value string) {
+	index := hash(value)
+	current.items[index].Insert(value)
 }
 
-func (current HashTable) Find(seed string) _type.Node {
-	index := hash(seed)
-	return current.items[index].Find(seed)
+func (current HashTable) Find(value string) _type.Node {
+	index := hash(value)
+	return current.items[index].Find(value)
 }
 
-func (current *HashTable) Delete(seed string) {
-	index := hash(seed)
-	current.items[index].Delete(seed)
+func (current *HashTable) Delete(value string) {
+	index := hash(value)
+	current.items[index].Delete(value)
 }
 
 func (current HashTable) Print() {
