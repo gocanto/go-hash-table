@@ -11,16 +11,9 @@ func main() {
 	table.Print()
 
 	fmt.Println("======")
-	fmt.Println("value:", table.Find("Gustavo").Key)
+	fmt.Println("value:", table.Find("Gustavo").Value)
 	fmt.Println("======")
 	table.Delete("Gustavo")
 	fmt.Println("======")
-	fmt.Println("value:", table.Find("Gustavo").Key)
-	//bucket := Bucket{}
-	//bucket.Insert("Li")
-	//bucket.Insert("Gus")
-	//
-	//bucket.Delete("Gus")
-	//
-	//bucket.Print()
+	fmt.Println("value:", table.Find("Gustavo").Value)
 }
