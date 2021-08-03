@@ -14,18 +14,68 @@ type Bucket struct {
 }
 
 type HashTable struct {
-	array [Size]*Bucket
+	items [Size]*Bucket
 }
 
 func Init() *HashTable {
-	table := &HashTable{}
-	//fmt.Println(table.array)
+	collection := &HashTable{}
 
-	for i := range table.array {
-		table.array[i] = &Bucket{}
+	for i := range collection.items {
+		collection.items[i] = &Bucket{}
 	}
 
-	return table
+	return collection
+}
+
+func (current *HashTable) Add(seed string) {
+	index := hash(seed)
+	current.items[index].Insert(seed)
+}
+
+func (current HashTable) Find(seed string) Node {
+	index := hash(seed)
+	return current.items[index].Find(seed)
+}
+
+func (current *HashTable) Delete(seed string) {
+	index := hash(seed)
+	current.items[index].Delete(seed)
+}
+
+func (current HashTable) Print() {
+	for i := range current.items {
+		current.items[i].Print()
+	}
+}
+
+func main() {
+	table := Init()
+	table.Add("Gustavo")
+	table.Print()
+
+	fmt.Println("======")
+	fmt.Println("value:", table.Find("Gustavo").key)
+	fmt.Println("======")
+	table.Delete("Gustavo")
+	fmt.Println("======")
+	fmt.Println("value:", table.Find("Gustavo").key)
+	//bucket := Bucket{}
+	//bucket.Insert("Li")
+	//bucket.Insert("Gus")
+	//
+	//bucket.Delete("Gus")
+	//
+	//bucket.Print()
+}
+
+func hash(seed string) int {
+	result := 0
+
+	for _, letter := range seed {
+		result += int(letter)
+	}
+
+	return result % Size
 }
 
 func (bucket *Bucket) Insert(seed string) {
@@ -82,31 +132,6 @@ func (bucket Bucket) Print() {
 	//head := bucket.head
 
 	for e := bucket.head; e != nil; e = e.next {
-		fmt.Println(e.key)
+		fmt.Println("key:", e.key)
 	}
-}
-
-func (current *HashTable) Add(seed string) {
-	index := hash(seed)
-	current.array[index].Insert(seed)
-}
-
-func main() {
-	//table := Init()
-	bucket := Bucket{}
-	bucket.Insert("Li")
-	bucket.Insert("Gus")
-
-	bucket.Delete("Gus")
-
-	bucket.Print()
-}
-func hash(seed string) int {
-	result := 0
-
-	for _, letter := range seed {
-		result += int(letter)
-	}
-
-	return result % Size
 }
